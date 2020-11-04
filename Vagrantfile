@@ -14,7 +14,7 @@ MACHINES = {
                  :size  => '20',
                  :port  => 2
                 },
-                # RAID5 /var
+                # RAID5 
                 :sata3 => {
                  :dfile => './sata3.vdi',
                  :size  => '20',
