@@ -3,7 +3,7 @@ MACHINES = {
     :box_name => "centos/7",
     :ip_addr  => '10.10.0.2',
     :disks    => {
-               # RAID0 /usr
+               # RAID0 
                :sata1 => {
                  :dfile => './sata1.vdi',
                  :size  => '20', #Mb
@@ -35,7 +35,7 @@ MACHINES = {
                  :size  => '20',
                  :port  => 6
                 },
-                # RAID10 /home
+                # RAID10 
                 :sata7 => {
                  :dfile => './sata7.vdi',
                  :size  => '20',
@@ -106,17 +106,17 @@ Vagrant.configure("2") do |config|
    # создать GPT раздел и 5 партиций
    echo -e "o \ny \nn \n1 \n \n+3M \n8300\nn \n2 \n \n+4M \n8300 \nn\n3 \n \n+4M \n8300 \nn\n4 \n \n+4M \n8300 \nn\n5 \n \n \n8300 \nw\ny\n" | gdisk /dev/sdl
 
-   # GPT раздел raid10
+   # GPT partition
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdh
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdi
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdj
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdk
 
-   # GPT раздел raid0
+   # GPT partition
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdb
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdc
 
-   # GPT раздел raid5
+   # GPT partition 
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdd
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sde
    echo -e "o \ny \nn \n1 \n \n \nfd00 \nw\ny\n" | gdisk /dev/sdf
@@ -143,12 +143,9 @@ Vagrant.configure("2") do |config|
    cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
    /sbin/dracut --mdadmconf --add="mdraid" --force -v
    reboot
+
    SHELL
 
-   #config.vm.provision "ansible" do |ansible|
-   #     ansible.playbook = "site.yml"
-   #     ansible.verbose = "vv"
-   #end
 
     end
   end
